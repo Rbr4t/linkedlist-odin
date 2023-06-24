@@ -6,7 +6,6 @@ class Node {
 }
 
 const LinkedList = () => {
-    
     let size = 1;
     let values = new Node(0);
     let head = values
@@ -32,11 +31,18 @@ const LinkedList = () => {
 
     const toString = () => {
         let tail = values
+        let str = ""
         while(tail != null) {
-            console.log(tail.value)
-            tail = tail.next
+            if(tail.next === null) {
+                str += `( ${ tail.value } )`
 
+            } else {
+                str += `( ${ tail.value } ) -> `
+
+            }
+            tail = tail.next
         }
+        console.log(str)
     }
 
     const index = (i) => {
@@ -63,7 +69,18 @@ const LinkedList = () => {
         }
         return false
     }
-    return {values, append, prepend, toString, size, index, pop, contains}
+
+    const find = (val) => {
+        let node = values
+        for(let j=0; j<size; j++){
+            node = node.next
+            if(node.value === val) { return j }
+
+        }
+        return null
+    }
+
+    return { append, prepend, toString, size, index, pop, contains, find, head, last}
 }
 
 let ll = LinkedList();
@@ -74,10 +91,9 @@ ll.append(new Node(1))
 
 ll.toString()
 ll.index(3)
-console.log("   ")
 ll.pop()
 ll.toString()
 
 console.log(ll.contains(3))
-//console.log(ll.values)
-//console.log(ll.values)
+
+console.log(ll.find(1))
